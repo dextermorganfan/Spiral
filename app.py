@@ -13,7 +13,6 @@ database = mysql.connector.connect(
    database = "spiral"
 )
 
-
 @app.route("/")
 def Register():
    return render_template("Register.html")
@@ -113,7 +112,7 @@ def vendorHome():
 
    if session.get("user"):
 
-      with open("products.json", "r") as f:
+      with open("extra/products.json", "r") as f:
          data = json.load(f)
 
       products = []
@@ -142,7 +141,7 @@ def createProduct():
    stock = int(request.form.get("stock"))
    price = float(request.form.get("price"))
 
-   with open("products.json", "r") as f:
+   with open("extra/products.json", "r") as f:
       data = json.load(f)
 
    generatedID = str(uuid.uuid4())
@@ -169,14 +168,14 @@ def createProduct():
       
       data[generatedID] = setupProductData()
 
-      with open('products.json', 'w') as f:
+      with open('extra/products.json', 'w') as f:
          json.dump(data, f, indent=4)
 
    else:
 
       data[generatedID] = setupProductData()
 
-      with open('products.json', 'w') as f:
+      with open('extra/products.json', 'w') as f:
          json.dump(data, f, indent=4)
 
    return "Created Product!"
@@ -186,12 +185,12 @@ def deleteProduct():
 
    productID = request.form.get("productID")
 
-   with open("products.json", "r") as f:
+   with open("extra/products.json", "r") as f:
       data = json.load(f)
 
    data.pop(productID, None)
 
-   with open('products.json', 'w') as f:
+   with open('extra/products.json', 'w') as f:
          json.dump(data, f, indent=1)
 
    return "Deleted Product!"
@@ -199,7 +198,7 @@ def deleteProduct():
 @app.route("/edit", methods=["POST", "GET"])
 def edit():
 
-   with open("products.json", "r") as f:
+   with open("extra/products.json", "r") as f:
       data = json.load(f)
 
    productID = request.args.get("productID")
@@ -215,7 +214,7 @@ def editComplete():
    newCategory = request.form.get("newCategory")
    newPrice = float(request.form.get("newPrice"))
 
-   with open("products.json", "r") as f:
+   with open("extra/products.json", "r") as f:
       data = json.load(f)
 
    data[productID]["title"] = newTitle
@@ -224,7 +223,7 @@ def editComplete():
    data[productID]["category"] = newCategory
    data[productID]["price"] = newPrice
 
-   with open('products.json', 'w') as f:
+   with open('extra/products.json', 'w') as f:
          json.dump(data, f, indent=4)
 
    return "Editing Complete"
@@ -232,7 +231,7 @@ def editComplete():
 @app.route("/adminHome")
 def adminHome():
 
-   with open("products.json", "r") as f:
+   with open("extra/products.json", "r") as f:
       data = json.load(f)
 
    products = []
@@ -246,7 +245,7 @@ def adminHome():
 @app.route("/productPage")
 def productPage():
 
-   with open("products.json", "r") as f:
+   with open("extra/products.json", "r") as f:
       data = json.load(f)
 
    productID = request.args.get("productID")
