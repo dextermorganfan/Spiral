@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>My Account</title>
+
+   <style>
+
+      * {
+         padding: 0;
+         margin: 0;
+         font-family: 'Sofia Pro';
+         color: black;
+      }
+
+      #content1 {
+         position: relative;
+         display: flex;
+         justify-content: center;
+         top: 15px;
+         top: 65px;
+      }
+
+      #content1 p {
+         color: black;
+         font-size: 29px;
+      }
+
+      #content2 {
+         width: fit-content;
+         display: flex;
+         flex-direction: column;
+         position: relative;
+         top: 175px;
+         font-size: 20px;
+         padding-left: 110px;
+      }
+
+      #email { 
+         color :rgba(74, 74, 74, 0.502)
+      }
+
+      #logout {
+         width: fit-content;
+      }
+
+
+   </style>
+
+</head>
+<body>
+
+   <div id="greyPart"></div>
+
+
+   <div id="content1">
+      <p>YOUR SPIRAL ACCOUNT</p>
+   </div>
+
+   <div id="content2">
+      <p>Name: {{ user[0] }}</p>
+      <p id="email">Email: {{ user[2] }}</p>
+      <p id="accountType">Account Type : {{ user[5] }}</p>
+      <a id="logout" href="/logout">Log out</a>
+   </div>
+   
+</body>
+   <script>
+      
+      let accountType = document.getElementById("accountType")
+      let type = "{{ user [5] }}"
+
+      accountType.onclick = function() {
+
+         if (type == "customer") {
+
+            type = "vendor"
+            accountType.style.color = "red"
+            accountType.innerText = "Account Type : vendor"
+
+
+            let xhr = new XMLHttpRequest()
+            xhr.open("POST", "/changeAccountType")
+
+            let formData = new FormData
+            formData.append("type", type)
+
+            xhr.send(formData)
+
+            console.log("They are now a " + type)
+         } else {
+
+            type = "customer"
+            accountType.style.color = "blue"
+            accountType.innerText = "Account Type : customer"
+
+            let xhr = new XMLHttpRequest()
+            xhr.open("POST", "/changeAccountType")
+            
+            let formData = new FormData
+            formData.append("type", type)
+
+            xhr.send(formData)
+
+            console.log("They are now a " + type)
+         }
+      }
+
+
+   </script>
+</html>

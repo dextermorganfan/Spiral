@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Product Creation</title>
+</head>
+
+   <style>
+
+       * {
+         padding: 0;
+         margin: 0;
+         font-family: 'Sofia Pro';
+       }
+
+       .parent {
+         display: flex;
+         position: relative;
+         width: 100%;
+         height: 901px;
+       }
+
+       .child1 {
+         width: 50%;
+         background-color: rgb(255, 255, 255);
+       }
+
+       .child2 {
+         width: 50%;
+         background-color: rgb(255, 255, 255);
+       }
+
+       #logo {
+         position: relative;
+         top: 50px;
+         display: flex;
+         justify-content: center;
+         font-size: 120px;
+       }
+
+       #hero {
+         top: 50px;
+         font-size: 100px;
+         display: flex;
+         position: relative;
+         justify-content: center;
+         text-align: center;
+         color: black;
+       }
+
+       #create {
+         font-size: 25px;
+         border-radius: 50px;
+         padding: 10px 20px 10px 20px;
+         color: white;
+         background-color: rgb(0, 0, 255);
+         border: none;
+         transition: transform .15s;
+       }
+
+       #create:hover {
+         cursor: pointer;
+      }
+
+       #create:active {
+         transform: scale(.95);
+       }
+
+       #createHolder {
+         display: flex;
+         position: relative;
+         justify-content: center;
+         top: 75px;
+       }
+
+       .child1-1 {
+        left: 50px;
+        top:10px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        justify-content: center;
+       }
+
+       textarea {
+        font-size: 17px;
+       }
+
+       input {
+        font-size: 17px;
+       }
+
+       label {
+        font-size: 35px;
+       }
+
+   </style>
+
+<body>
+
+   <div class="parent">
+
+      <div class="child1">
+
+
+        <div class="child1-1">
+          <label for="">Title</label>
+          <br>
+          <input id="title" type="text" value="Product Title">
+          <br>
+
+          <label for="">Description</label>
+          <br>
+          <textarea name="" id="description" cols="30" rows="10">Product Description</textarea>
+          <br>
+
+          <label for="">Image</label>
+          <br>
+          <input id="image" type="text" value="Product Image">
+          <br>
+
+          <label for="">Category</label>
+          <br>
+          <input id="category" type="text" value="Product Category">
+          <br>
+
+          <label for="">Colors</label>
+          <br>
+          <input id="colors" type="text" value='{"1":"Black"}'>
+
+          <br>
+          <label for="">Sizes</label>
+          <br>
+          <input id="sizes" type="text" value='{"1":"Large"}'>
+
+          <br>
+          <label for="">Stock</label>
+          <br>
+          <input id="stock" type="text" value=100>
+          <br>
+
+          <label for="">Price</label>
+          <br>
+          <input id="price" type="text" value=10.99>
+          <br>
+          
+        </div>
+
+      </div>
+
+      <div class="child2">
+
+         <p id="logo">🌀</p>
+         <p id="hero">Spiral <br> Product <br> Creation</p>
+         <p id="createHolder"><button id="create">Add Product</button></p>
+
+      </div>
+
+   </div>
+   
+</body>
+
+   <script>
+
+      let createButton = document.getElementById("create")
+
+      createButton.onclick = function() {
+
+        let title = document.getElementById("title")
+        let description = document.getElementById("description")
+        let image = document.getElementById("image")
+        let category = document.getElementById("category")
+        let colors = document.getElementById("colors")
+        let sizes = document.getElementById("sizes")
+        let stock = document.getElementById("stock")
+        let price = document.getElementById("price")
+
+        let xhr = new XMLHttpRequest()
+        xhr.open("POST", "/createProduct")
+
+        let formData = new FormData
+        formData.append("title", title.value)
+        formData.append("description", description.value)
+        formData.append("image", image.value)
+        formData.append("category", category.value)
+        formData.append("colors", colors.value) 
+        formData.append("sizes", sizes.value)
+        formData.append("stock", stock.value)
+        formData.append("price", price.value)
+
+        xhr.send(formData)
+
+        window.location.href = "/vendorHome"
+        
+      }
+
+   </script>
+
+</html>

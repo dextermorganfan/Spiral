@@ -1,0 +1,19 @@
+{
+    "da41d272-88e9-41c4-bb74-7e0789dc09b6": {
+        "title": "Black Leggings",
+        "description": " A slim pair of blck comfortable leggings for your everyday gym activities! ",
+        "image": "Product Image",
+        "category": "Bottoms",
+        "colors": {
+            "1": "Black"
+        },
+        "sizes": {
+            "1": "Large"
+        },
+        "stock": 100,
+        "price": 55.89,
+        "reviews": {},
+        "vendor": "dexter@gmail.com",
+        "productID": "da41d272-88e9-41c4-bb74-7e0789dc09b6"
+    }
+}

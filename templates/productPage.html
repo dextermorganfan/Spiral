@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Product Page Sample</title>
+</head>
+
+   <style>
+
+      * {
+         padding: 0;
+         margin: 0;
+         font-family: 'Sofia Pro';
+      }
+
+      .container1 {
+         display: flex;
+         position: relative;
+         justify-content: center;
+      }
+
+      .container2 {
+         position: relative;
+         display: flex;
+         top: 50px;
+         width: 30%;
+         height: 800px;
+         margin-right: 50px;
+         background-color: greenyellow;
+         background-image: url("https://cdn.shopify.com/s/files/1/0156/6146/products/IconTrendAllInOneBlack-B4A8R-BBBB-2340.264-Edit_53eccfd1-3b86-4e06-8044-8673343ce0f8.jpg?v=1682071360");
+         background-size: cover;
+         background-position: -70px;
+      }
+
+      .container3 {
+         display: flex;
+         position: relative;
+         width: 25%;
+         top: 50px;
+         background-color: rgb(255, 255, 255);
+      }
+
+      #title {
+         position: absolute;
+         font-size: 30px;
+      }
+
+      #price {
+         display: flex;
+         position: absolute;
+         font-size: 25px;
+         top: 5px;
+         left: 85%;
+      }
+
+      #category {
+         position: relative;
+         display: flex;
+         font-size: 20px;
+         top: 40px;
+         color: rgb(34, 34, 34);
+      }
+
+      #description {
+         position: absolute;
+         display: flex;
+         width: 75%;
+         left: 0px;
+         top: 250px;
+         color: rgb(34, 34, 34);
+      }
+
+      #descLabel {
+         position: absolute;
+         display: flex;
+         font-size: 25px;
+         top: 210px;
+      }
+
+   </style>
+<body>
+
+   <div class="container1">
+
+      <div class="container2">
+         &nbsp;
+      </div>
+
+      <div class="container3">
+
+         <p id="title">{{ productData["title"] }}</p>
+
+         <p id="price">${{ productData["price"] }}</p>
+
+         <p id="category">{{ productData["category"] }}</p>
+
+         <label id="descLabel" for="">Description</label>
+
+         <p id="description">{{ productData["description"] }}</p>
+
+
+      </div>
+      
+   </div>
+
+   
+</body>
+
+   <script>
+
+
+
+   </script>
+</html>

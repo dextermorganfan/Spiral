@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Login</title>
+
+   <style>
+
+      * {
+         padding: 0%;
+         margin: 0;
+         height: 100%;
+         color: rgb(59, 59, 59);
+         font-family: 'Sofia Pro';
+      }
+
+      img {
+         display: block;
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+      }
+
+      input {
+         display: block;
+         position: absolute;
+         left: 64%;
+         width: 390px;
+         height: 50px;
+         font-size: 35px;
+         outline: none;
+         border:  transparent;
+      }
+
+      #email {
+         bottom: 388px;
+      }
+
+      #password {
+         bottom: 272px;
+      }
+
+      #login {
+         display: block;
+         position: absolute;
+         height: 60px;
+         width: 390px;
+         left: 64%;
+         bottom: 165px;
+         opacity: 0;
+      }
+
+      #login:hover {
+         cursor: pointer;
+      }
+
+   </style>
+</head>
+<body>
+
+   <img draggable="false" src="{{ url_for('static', filename='images/Login.png') }}" alt="">
+
+   <input id="email" type="text">
+   <input id="password" type="text">
+
+   <button id="login">DUMMY BUTTON</button>
+
+</body>
+   <script>
+   
+   let loginButton = document.getElementById("login")
+
+   loginButton.onclick = function() {
+
+      let email = document.getElementById("email")
+      let password = document.getElementById("password")
+
+      let xhr = new XMLHttpRequest()
+      xhr.open("POST", "/loginToAccount")
+
+      xhr.addEventListener("load", function() {
+         if (xhr.status == 200) {
+            window.location.href = xhr.responseText
+         }
+      })
+
+      let formData = new FormData
+      formData.append("email", email.value)
+      formData.append("password", password.value)
+
+      xhr.send(formData)
+
+      email.value = ''
+      password.value = ''
+   }
+
+   </script>
+</html>
