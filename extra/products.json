@@ -2,10 +2,11 @@
     "da41d272-88e9-41c4-bb74-7e0789dc09b6": {
         "title": "Black Leggings",
         "description": " A slim pair of blck comfortable leggings for your everyday gym activities! ",
-        "image": "Product Image",
-        "category": "Bottoms",
+        "image": "https://cdn.shopify.com/s/files/1/0156/6146/products/IconTrendLeggingsBlack-B4A8U-BBBB-2393.272_0d9225c6-073a-4fd7-a172-6a9dcadb1545.jpg?v=1678205729",
+        "category": "Leggings",
         "colors": {
-            "1": "Black"
+            "1": "Black",
+            "2": "Grey"
         },
         "sizes": {
             "1": "Large"

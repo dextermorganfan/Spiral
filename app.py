@@ -75,7 +75,16 @@ def Login():
 
 @app.route("/Home")
 def Home():
-   return render_template("customerHome.html", user=session.get("user"))
+
+   with open("extra/products.json", "r") as f:
+      data = json.load(f)
+
+   products = []
+
+   for key in data:
+      products.append(data[key])
+
+   return render_template("customerHome.html", user=session.get("user"), products=products)
 
 @app.route("/Error")
 def Error():
@@ -241,7 +250,6 @@ def adminHome():
    
    return render_template("adminHome.html", products=products)
 
-
 @app.route("/productPage")
 def productPage():
 
@@ -252,3 +260,48 @@ def productPage():
    productData = data[productID]
 
    return render_template("productPage.html", productData=productData)
+
+@app.route("/addToCart", methods=["POST"])
+def addToCart():
+
+   productID = request.form.get("productID")
+   color = request.form.get("color")
+   size = request.form.get("size")
+   
+   with open("extra/carts.json", "r") as f:
+      carts = json.load(f)
+
+   with open("extra/products.json", "r") as f:
+      data = json.load(f)
+
+   generatedID = str(uuid.uuid4())
+   
+   if session.get("user")[2] in carts:
+      carts[session.get("user")[2]].update({
+         generatedID : [generatedID,color,size, data[productID]['price'], data[productID]['image'], data[productID]['title']]
+      })
+   else:
+      carts[session.get("user")[2]] = {
+         generatedID : [generatedID, color, size, data[productID]['price'], data[productID]['image'], data[productID]['title']]
+      }
+   
+   with open('extra/carts.json', 'w') as f:
+         json.dump(carts, f, indent=4)
+
+   return "Add Product To Cart"
+
+@app.route("/cart")
+def cart():
+
+   with open("extra/carts.json", "r") as f:
+      carts = json.load(f)
+
+   items = []
+
+   for email in carts:
+      if email == session.get("user")[2]:
+         for itemInfo in carts[email]:
+            items.append(carts[email][itemInfo])
+   
+
+   return render_template("cart.html", items=items)

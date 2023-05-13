@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Your Cart</title>
+</head>
+   <style>
+
+      * {
+         padding: 0;
+         margin: 0;
+         font-family: 'Consolas';
+      }
+
+      #yourcart {
+         position: relative;
+         display: flex;
+         justify-content: center;
+         font-size: 35px;
+         top: 30px;
+      }
+
+      .container {
+         width: 100%;
+         position: relative;
+         justify-content: center;
+         top: 50px;
+         display: flex;
+      }
+
+      .left {
+         width: 50%;
+         height: 500px;
+
+         overflow-x: hidden;
+         overflow-y: scroll;
+         flex-wrap: wrap;
+      }
+
+      .right {
+         width: 50%;
+         background-color: royalblue;
+      }
+
+      .cartItem {
+         height: 120px;
+         padding-bottom: 5px;
+      }
+
+      #image {
+         width: 90px;
+         padding-top: 5px;
+         padding-left: 5px;
+      }
+
+      #price {
+         display: flex;
+         position: relative;
+         left: 800px;
+         bottom: 150px;
+         font-size: 20px;
+         font-weight: bold;
+      }
+
+      .wrapper {
+         display: flex;
+         flex-direction: column;
+         position: relative;
+         left: 100px;
+         bottom: 115px;
+      }
+   
+   </style>
+<body>
+
+   <p id="yourcart">Your Cart</p>
+
+   <div class="container">
+
+      <div class="left">
+
+         {% for key in items %}
+            <div class="cartItem">
+               <img id="image" src="{{ key[4] }}" alt="">
+               <div class="wrapper">
+                  <p id="title">{{ key[5] }}</p>
+                  <p id="size">Size : {{ key[2] }}</p>
+                  <p id="color">Color : {{ key[1] }}</p>
+               </div>
+               <p id="price">${{ key[3] }}</p>
+            </div>
+         {% endfor %}
+
+      </div>
+
+      <div class="right">
+         &nbsp;
+      </div>
+      
+   </div>
+   
+</body>
+   <script>
+      
+   </script>
+</html>
