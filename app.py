@@ -280,9 +280,11 @@ def addToCart():
       carts[session.get("user")[2]].update({
          generatedID : [generatedID,color,size, data[productID]['price'], data[productID]['image'], data[productID]['title']]
       })
+      carts[session.get("user")[2]]['total'] += data[productID]['price']
    else:
       carts[session.get("user")[2]] = {
-         generatedID : [generatedID, color, size, data[productID]['price'], data[productID]['image'], data[productID]['title']]
+         generatedID : [generatedID, color, size, data[productID]['price'], data[productID]['image'], data[productID]['title']],
+         "total" : data[productID]['price']
       }
    
    with open('extra/carts.json', 'w') as f:
@@ -297,11 +299,68 @@ def cart():
       carts = json.load(f)
 
    items = []
+   total = 0
 
    for email in carts:
       if email == session.get("user")[2]:
          for itemInfo in carts[email]:
+            if itemInfo == "total":
+               total = carts[email][itemInfo]
+               continue
             items.append(carts[email][itemInfo])
    
 
-   return render_template("cart.html", items=items)
+   return render_template("cart.html", items=items,total=total)
+
+@app.route("/thank")
+def thank():
+
+   order_number = uuid.uuid4().hex
+
+   with open("extra/orders.json", "r") as f:
+      orders = json.load(f)
+
+   with open("extra/carts.json", "r") as f:
+      carts = json.load(f)
+
+   orders[order_number] = {
+      "customer" : session.get("user")[2],
+      "items" : []
+   }              
+
+   for key in carts:
+      if key == session.get("user")[2]:
+         for item in carts[key]:
+            if item != 'total':
+               orders[order_number]["items"].append(carts[key][item])
+
+   carts.pop(session.get("user")[2], None)
+
+   with open('extra/orders.json','w') as f:
+      json.dump(orders, f, indent=4)
+   
+   with open('extra/carts.json','w')as f:
+      json.dump(carts, f, indent=4)
+
+   return render_template("thank.html", user=session.get("user"), order_number=order_number)
+
+@app.route("/submitReview", methods=["POST"])
+def submitReview():
+
+   productID = request.form.get("productID")
+   rating = request.form.get("rating")
+   desc = request.form.get("desc")
+
+   with open("extra/products.json", "r") as f:
+      products = json.load(f)
+
+   products[productID]["reviews"].append({
+      "rating" : rating,
+      "desc" : desc,
+      "reviewer" : session.get("user")[1]
+   })
+
+   with open('extra/products.json','w') as f:
+      json.dump(products, f, indent=4)
+
+   return "New Review!"

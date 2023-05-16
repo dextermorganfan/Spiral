@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Product Page Sample</title>
+   <title>Viewing Product</title>
 </head>
 
    <style>
@@ -29,7 +29,7 @@
          height: 800px;
          margin-right: 50px;
          background-color: greenyellow;
-         background-image: url("https://cdn.shopify.com/s/files/1/0156/6146/products/IconTrendAllInOneBlack-B4A8R-BBBB-2340.264-Edit_53eccfd1-3b86-4e06-8044-8673343ce0f8.jpg?v=1682071360");
+         background-image: url("{{ productData['image'] }}");
          background-size: cover;
          background-position: -70px;
       }
@@ -79,13 +79,80 @@
          top: 210px;
       }
 
+      .three {
+         display: flex;
+         position: relative;
+         background-color: rgb(255, 255, 255);
+         top: 100px;
+         height: 700px;
+      }
+
+      .blah1 {
+         width: 100%;
+         position: relative;
+         display: flex;
+         justify-content: center;
+         top: 50px;
+         font-size: 30px;
+      }
+
+
+      .blah2 {
+         width: 100%;
+         height: 500px;
+         display: flex;
+         justify-content: center;
+      }
+
+      .left {
+         width: 50%;
+         overflow: scroll;
+         flex-wrap: wrap;
+      }
+
+      .right {
+         width: 50%;
+         background-color: rgb(255, 255, 255);
+      }
+
+      .review {
+         height: 120px;
+         padding-bottom: 20px;
+         padding-top: 10px;
+         padding-left: 5px;
+      }
+
+      #reviewDesc {
+         font-size: 15px;
+      }
+
+      #label1 {
+         display: flex;
+         position: relative;
+         justify-content: center;
+         top: 10px;
+         font-size: 30px;
+
+      }
+
+      .reviewData {
+         display: flex;
+         width: 50%;
+         flex-direction: column;
+         position: relative;
+         padding-left: 25px;
+      }
+
+      #rating {
+         width: 50px;
+      }
+
    </style>
 <body>
 
    <div class="container1">
 
       <div class="container2">
-         &nbsp;
       </div>
 
       <div class="container3">
@@ -104,13 +171,87 @@
       </div>
       
    </div>
+   
+
+   <div class="three">
+
+
+      <div class="blah2">
+
+
+         <div class="left">
+
+            {% for key in productData['reviews'] %}
+
+               <div class="review">
+                  <p>{{ key['reviewer'] }}</p>
+                  <p>Gave a {{ key['rating'] }} star rating!</p>
+                  <p id="reviewDesc">{{ key['desc'] }}</p>
+                  <br>
+                  <hr>
+               </div>
+            {% endfor %}
+            
+
+           
+
+         </div>
+         
+
+         <div class="right">
+
+            <h2 id="label1">Write a review!</h2>
+
+
+
+            <div class="reviewData">
+
+               <label for="">Rating</label>
+               <br>
+               <input id="rating" maxlength="1" type="text">
+               <br>
+
+               <label for="">Description</label>
+               <br>
+               <textarea name="" id="desc" cols="30" rows="10"></textarea>
+            
+
+               <button id="submit">Submit</button>
+
+            </div>
+
+         </div>
+
+
+      </div>
+      
+   </div>
 
    
 </body>
 
    <script>
 
+      let submitButton = document.querySelector("#submit")
+
+      submitButton.onclick = function() {
+
+         let rating = document.querySelector("#rating").value
+         let description = document.querySelector("#desc").value
+         
+         let xhr = new XMLHttpRequest()
+         xhr.open("POST", "/submitReview")
+
+         let formData = new FormData()
+         formData.append("rating", rating)
+         formData.append("desc", description)
+         formData.append("productID", "{{ productData['productID'] }}")
+
+         xhr.send(formData)
+      }
+
 
 
    </script>
+   
 </html>

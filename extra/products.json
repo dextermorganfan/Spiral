@@ -13,7 +13,18 @@
         },
         "stock": 100,
         "price": 55.89,
-        "reviews": {},
+        "reviews": [
+            {
+                "rating": "5",
+                "desc": "HIIIIIII",
+                "reviewer": "dexter"
+            },
+            {
+                "rating": "2",
+                "desc": "ITS A GREAT PRODUCT",
+                "reviewer": "dexter"
+            }
+        ],
         "vendor": "dexter@gmail.com",
         "productID": "da41d272-88e9-41c4-bb74-7e0789dc09b6"
     }

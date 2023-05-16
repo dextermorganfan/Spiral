@@ -286,6 +286,15 @@
          }
       })
 
+      const productImages = document.querySelectorAll("#productImage")
+
+      productImages.forEach(image => {
+         image.onclick = function() {
+            productID = image.parentElement.id
+            window.location.href = '/productPage?productID=' + productID
+         }
+      })
+
       let accountButton = document.getElementById("account")
       accountButton.onclick = function() {
          window.location.href = "/accountPage"
