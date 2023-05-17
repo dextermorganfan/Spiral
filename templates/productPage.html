@@ -147,6 +147,24 @@
          width: 50px;
       }
 
+      #filter {
+         position: relative;
+         display: flex;
+         float: right;
+         margin-right: 35px;
+         background-color: blue;
+         color: white;
+         font-size: 25px;
+         border: none;
+         border-radius: 100px;
+         padding: 5px 10px 5px 10px;
+      }
+      
+      #filter:hover {
+         cursor: pointer;
+      }
+
+      
    </style>
 <body>
 
@@ -171,38 +189,33 @@
       </div>
       
    </div>
-   
 
    <div class="three">
 
 
       <div class="blah2">
 
-
          <div class="left">
 
-            {% for key in productData['reviews'] %}
+            <button id="filter">
+               Filter >
+            </button>
 
-               <div class="review">
-                  <p>{{ key['reviewer'] }}</p>
-                  <p>Gave a {{ key['rating'] }} star rating!</p>
-                  <p id="reviewDesc">{{ key['desc'] }}</p>
-                  <br>
-                  <hr>
+               {% for key in productData['reviews'] %}
+                  <div class="review">
+                     <p>{{ key['reviewer'] }}</p>
+                     <p>Gave a {{ key['rating'] }} star rating!</p>
+                     <p id="reviewDesc">{{ key['desc'] }}</p>
+                     <br>
+                     <hr>
+                  </div>
+               {% endfor %}
+
                </div>
-            {% endfor %}
-            
-
-           
-
-         </div>
-         
 
          <div class="right">
 
             <h2 id="label1">Write a review!</h2>
-
-
 
             <div class="reviewData">
 
@@ -250,7 +263,18 @@
          xhr.send(formData)
       }
 
+      let filter = document.querySelector("#filter")
 
+      filter.onclick = function() {
+         let xhr = new XMLHttpRequest()
+         xhr.open("POST", "/filterReviews")
+
+         let formData = new FormData()
+         formData.append("productID", "{{ productData['productID'] }}")
+
+         xhr.send(formData)
+      }
+      
 
    </script>
    

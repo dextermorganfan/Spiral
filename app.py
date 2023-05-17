@@ -326,19 +326,19 @@ def thank():
    orders[order_number] = {
       "customer" : session.get("user")[2],
       "items" : []
-   }              
+   }
 
    for key in carts:
       if key == session.get("user")[2]:
          for item in carts[key]:
             if item != 'total':
                orders[order_number]["items"].append(carts[key][item])
-
+               
    carts.pop(session.get("user")[2], None)
 
    with open('extra/orders.json','w') as f:
       json.dump(orders, f, indent=4)
-   
+
    with open('extra/carts.json','w')as f:
       json.dump(carts, f, indent=4)
 
@@ -355,7 +355,7 @@ def submitReview():
       products = json.load(f)
 
    products[productID]["reviews"].append({
-      "rating" : rating,
+      "rating" : int(rating),
       "desc" : desc,
       "reviewer" : session.get("user")[1]
    })
@@ -364,3 +364,18 @@ def submitReview():
       json.dump(products, f, indent=4)
 
    return "New Review!"
+
+@app.route("/filterReviews", methods=["POST"])
+def filterReviews():
+
+   with open("extra/products.json", "r") as f:
+      products = json.load(f)
+   
+   productID = request.form.get("productID")
+
+   products[productID]['reviews'].sort(key=lambda x: x['rating'], reverse=True)
+
+   with open('extra/products.json','w') as f:
+      json.dump(products, f, indent=4)
+
+   return "Fitler Reviews"

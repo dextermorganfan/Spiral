@@ -15,13 +15,33 @@
         "price": 55.89,
         "reviews": [
             {
-                "rating": "5",
-                "desc": "HIIIIIII",
+                "rating": 9,
+                "desc": "AMAZING PRODUCT",
                 "reviewer": "dexter"
             },
             {
-                "rating": "2",
+                "rating": 5,
+                "desc": "Wonderful product!",
+                "reviewer": "dexter"
+            },
+            {
+                "rating": 3,
                 "desc": "ITS A GREAT PRODUCT",
+                "reviewer": "dexter"
+            },
+            {
+                "rating": 3,
+                "desc": "HAAHHAAH",
+                "reviewer": "dexter"
+            },
+            {
+                "rating": 2,
+                "desc": "this product IS HORRIBLE",
+                "reviewer": "dexter"
+            },
+            {
+                "rating": 1,
+                "desc": "It's alright...",
                 "reviewer": "dexter"
             }
         ],
